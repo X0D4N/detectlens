@@ -9,7 +9,7 @@ description = "Wazuh-native Detection Posture Management: ATT&CK coverage heatma
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
-authors = [{ name = "CYPHERLYNX" }]
+authors = [{ name = "X0D4N" }]
 keywords = ["wazuh", "siem", "detection", "mitre-attack", "soc", "posture"]
 dependencies = [
     "fastapi>=0.110",

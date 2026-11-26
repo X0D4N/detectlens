@@ -47,7 +47,7 @@ Watch it audit a live-looking Wazuh deployment in 21 seconds — 44 rules,
 ## 5-minute quickstart
 
 ```bash
-git clone https://github.com/CYPHERLYNX/detectlens.git detectlens && cd detectlens
+git clone https://github.com/X0D4N/detectlens.git detectlens && cd detectlens
 python3 -m venv .venv && .venv/bin/pip install -e .
 .venv/bin/python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
