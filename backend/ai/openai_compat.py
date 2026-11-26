@@ -37,16 +37,16 @@ class OpenAICompatAdapter(LLMAdapter):
         try:
             resp = httpx.post(url, json=body, headers=self._headers(), timeout=timeout)
         except httpx.TimeoutException:
-            raise AIError(f"{self.name}: request timed out after {timeout}s")
+            raise AIError(f"{self.name}: request timed out after {timeout}s") from None
         except httpx.HTTPError as e:
-            raise AIError(f"{self.name}: connection failed ({type(e).__name__})")
+            raise AIError(f"{self.name}: connection failed ({type(e).__name__})") from e
         if resp.status_code != 200:
             raise AIError(f"{self.name}: HTTP {resp.status_code} from {url}")
         try:
             data = resp.json()
             return data["choices"][0]["message"]["content"]
         except (ValueError, KeyError, IndexError, TypeError):
-            raise AIError(f"{self.name}: unexpected response shape from {url}")
+            raise AIError(f"{self.name}: unexpected response shape from {url}") from None
 
     def test_connection(self) -> tuple[bool, str]:
         """Probe GET /models: validates connectivity and the API key."""
