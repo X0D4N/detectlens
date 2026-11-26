@@ -29,16 +29,16 @@ class OllamaAdapter(LLMAdapter):
         try:
             resp = httpx.post(url, json=body, timeout=timeout)
         except httpx.TimeoutException:
-            raise AIError(f"{self.name}: request timed out after {timeout}s")
+            raise AIError(f"{self.name}: request timed out after {timeout}s") from None
         except httpx.HTTPError as e:
-            raise AIError(f"{self.name}: connection failed ({type(e).__name__})")
+            raise AIError(f"{self.name}: connection failed ({type(e).__name__})") from e
         if resp.status_code != 200:
             raise AIError(f"{self.name}: HTTP {resp.status_code} from {url}")
         try:
             data = resp.json()
             return data["message"]["content"]
         except (ValueError, KeyError, TypeError):
-            raise AIError(f"{self.name}: unexpected response shape from {url}")
+            raise AIError(f"{self.name}: unexpected response shape from {url}") from None
 
     def test_connection(self) -> tuple[bool, str]:
         """Check the server is up and the configured model is present."""

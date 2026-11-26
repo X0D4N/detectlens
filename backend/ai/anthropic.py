@@ -43,9 +43,9 @@ class AnthropicAdapter(LLMAdapter):
             resp = httpx.post(url, json=self._request_body(messages, max_tokens),
                               headers=self._headers(), timeout=timeout)
         except httpx.TimeoutException:
-            raise AIError(f"{self.name}: request timed out after {timeout}s")
+            raise AIError(f"{self.name}: request timed out after {timeout}s") from None
         except httpx.HTTPError as e:
-            raise AIError(f"{self.name}: connection failed ({type(e).__name__})")
+            raise AIError(f"{self.name}: connection failed ({type(e).__name__})") from e
         if resp.status_code != 200:
             raise AIError(f"{self.name}: HTTP {resp.status_code} from {url}")
         try:
@@ -54,13 +54,13 @@ class AnthropicAdapter(LLMAdapter):
                      if isinstance(b, dict) and b.get("type") == "text"]
             return "".join(texts)
         except (ValueError, KeyError, TypeError):
-            raise AIError(f"{self.name}: unexpected response shape from {url}")
+            raise AIError(f"{self.name}: unexpected response shape from {url}") from None
 
     def test_connection(self) -> tuple[bool, str]:
         """Minimal 1-token messages call: validates connectivity and the key."""
         try:
-            reply = self.chat([ChatMessage(role="user", content="ping")],
-                              max_tokens=1, timeout=15.0)
+            self.chat([ChatMessage(role="user", content="ping")],
+                      max_tokens=1, timeout=15.0)
         except AIError as e:
             msg = str(e)
             if "401" in msg:
