@@ -28,3 +28,7 @@ include = ["backend*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# FastAPI's File()/Body() call-in-default is the framework idiom, not a bug.
+"backend/app.py" = ["B008"]

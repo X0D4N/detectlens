@@ -74,7 +74,7 @@ def load_alerts(path: str | Path) -> list[Alert]:
                 raise ValueError(
                     f"{path}: malformed NDJSON at line {line_no}: {exc}"
                 ) from exc
-        records = list(zip(range(1, len(raw) + 1), raw))
+        records = list(zip(range(1, len(raw) + 1), raw, strict=True))
         label = "line"
     alerts: list[Alert] = []
     for i, item in records:
