@@ -19,7 +19,6 @@ from backend.attack_data import TACTICS, Technique, load_attack_subset
 from backend.config import AppConfig, config_path, load_config, save_config
 from backend.findings import (
     GLOSSARY,
-    Finding,
     build_findings,
 )
 from backend.posture import compute_posture
@@ -423,7 +422,7 @@ def test_glossary_has_required_terms():
                 "technique", "tactic", "dead rule", "noisy rule",
                 "posture score", "dwell"}
     assert required <= set(GLOSSARY)
-    for term, definition in GLOSSARY.items():
+    for _term, definition in GLOSSARY.items():
         assert definition.strip()
         assert definition == definition.strip()
 

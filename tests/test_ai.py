@@ -410,7 +410,7 @@ def test_key_never_in_outputs(monkeypatch):
     a = OpenAICompatAdapter("https://api.openai.com/v1", FAKE_KEY, "m")
     outputs.append(a.chat(msgs()))
 
-    for adapter, url, model in [
+    for adapter, _url, _model in [
         (AnthropicAdapter("https://api.anthropic.com", FAKE_KEY, "m"), None, None),
         (OllamaAdapter("http://localhost:11434", "m"), None, None),
     ]:

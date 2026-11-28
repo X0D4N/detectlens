@@ -18,12 +18,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Optional
-
-if TYPE_CHECKING:  # pragma: no cover
-    from .openai_compat import OpenAICompatAdapter
-    from .anthropic import AnthropicAdapter
-    from .ollama import OllamaAdapter
+from typing import Any, Optional
 
 
 class AIError(Exception):
